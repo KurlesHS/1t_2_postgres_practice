@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pg_practice_1
+    ports:
+      - '5431:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./create_table.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    #entrypoint:
+    #  - bash
+    #  - -c
+    #  - psql -U postgres -c 'drop database if exist pg_practise;' && psql -U postgres -c 'create database pg_practise;' && psql -U postgres -a -f /docker-entrypoint-initdb.d/create_tables.sql
+    # command: sh -c "exec psql -U postgres -c 'drop database if exist pg_practise;'"
+
+#    command:
+#      - /usr/local/bin/psql -U postgres -c 'drop database if exist pg_practise;'
+#      - /usr/local/bin/psql -U postgres -c 'create database pg_practise;'
+#      - /usr/local/bin/psql -U postgres -a -f /docker-entrypoint-initdb.d/create_tables.sql
+
+#volumes:
+#  db_postgres_t1_1:
+#    driver: localcd
